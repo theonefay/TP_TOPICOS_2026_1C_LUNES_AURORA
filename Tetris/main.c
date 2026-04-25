@@ -11,7 +11,7 @@ int main()
     }
 
     // Crear ventana l�gica 320x240, escala 2
-    if (gbt_crear_ventana("Demo B�sico", 320, 240, 2) < 0) {
+    if (gbt_crear_ventana("Demo Basico", 320, 240, 2) < 0) {
         printf("Error al crear ventana: %s\n", gbt_obtener_log());
         return -1;
     }
