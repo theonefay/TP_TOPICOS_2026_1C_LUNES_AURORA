@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1777153095 source:d:\documents\topicos_de_programacion\2026 1c\trabajo_practico\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
+1777154948 source:d:\documents\topicos_de_programacion\2026 1c\trabajo_practico\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
 	<stdio.h>
 	<stdlib.h>
 	"GBT/gbt.h"
