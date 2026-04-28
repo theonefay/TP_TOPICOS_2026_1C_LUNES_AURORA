@@ -1,62 +1,68 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "GBT/gbt.h"
+#include "Dibujo.h"
+#include "Piezas.h"
 
-int main()
-{
-    // Inicializar la biblioteca
-    if (gbt_iniciar() < 0) {
-        printf("Error al iniciar: %s\n", gbt_obtener_log());
-        return -1;
-    }
+#define FILAS 15
+#define COLUMNAS 15
+#define TAM_BLOQUE 20 //cada posicion es de 20 pixeles
+#define GROSOR_MARCO 8
+#define TAM_BLOQUE_P 10 //cada pieza usa 10 pixeles por posicion
 
-    // Crear ventana l�gica 320x240, escala 2
-    if (gbt_crear_ventana("Demo Basico", 320, 240, 2) < 0) {
-        printf("Error al crear ventana: %s\n", gbt_obtener_log());
-        return -1;
-    }
+// Paleta de colores
+tGBT_ColorRGB paletaCGA[16] = {
+    {0x00, 0x00, 0x00}, // 0: Negro
+    {0x00, 0x00, 0xAA}, // 1: Azul
+    {0x00, 0xAA, 0x00}, // 2: Verde
+    {0x00, 0xAA, 0xAA}, // 3: Cian
+    {0xAA, 0x00, 0x00}, // 4: Rojo
+    {0xAA, 0x00, 0xAA}, // 5: Magenta
+    {0xAA, 0x55, 0x00}, // 6: Marrón
+    {0xAA, 0xAA, 0xAA}, // 7: Gris claro
+    {0x55, 0x55, 0x55}, // 8: Gris oscuro
+    {0x55, 0x55, 0xFF}, // 9: Azul brillante
+    {0x55, 0xFF, 0x55}, // 10: Verde brillante
+    {0x55, 0xFF, 0xFF}, // 11: Cian brillante
+    {0xFF, 0x55, 0x55}, // 12: Rojo brillante
+    {0xFF, 0x55, 0xFF}, // 13: Magenta brillante
+    {0xFF, 0xFF, 0x55}, // 14: Amarillo
+    {0xFF, 0xFF, 0xFF}  // 15: Blanco (transparente en GBT)
+};
 
-    // Aplicar paleta VGA por defecto
-    gbt_aplicar_paleta(NULL, 0, GBT_FORMATO_888);
 
-    // Crear temporizador de 1 segundo
-    tGBT_Temporizador* timer = gbt_temporizador_crear(1.0);
+int tablero[FILAS][COLUMNAS] = {0};
 
-    // Loop principal
+int main() {
+    if (gbt_iniciar() < 0) return -1;
+
+    gbt_crear_ventana("Tetris Tablero", COLUMNAS*TAM_BLOQUE, FILAS*TAM_BLOQUE, 2);
+
+    // inicia la paleta de colores que voy a usar
+    gbt_aplicar_paleta(paletaCGA, 16, GBT_FORMATO_888);
+
+    // Posición inicial de la pieza O
+    int posX = COLUMNAS/2 * TAM_BLOQUE;
+    int posY = 8;
+
     while (1) {
-        // Procesar entrada de teclado
-        gbt_procesar_entrada();
+        gbt_borrar_backbuffer(0);
 
-        if (gbt_tecla_presionada(GBTK_ESCAPE)) {
-            // Salir si se presiona ESC
-            break;
-        }
+        // Dibujar tablero lógico
+        dibujarTablero(FILAS, COLUMNAS, tablero, TAM_BLOQUE);
 
-        if (gbt_tecla_sostenida(GBTK_DERECHA)) {
-            printf("Flecha derecha sostenida\n");
-        }
+        // Dibujar marco alrededor
+        dibujarMarco(FILAS, COLUMNAS, TAM_BLOQUE, GROSOR_MARCO,9,12,14, 11);
 
-        if (gbt_tecla_soltada(GBTK_IZQUIERDA)) {
-            printf("Soltaste la flecha izquierda\n");
-        }
 
-        if (gbt_temporizador_consumir(timer)) {
-            printf("Paso 1 segundo\n");
-        }
 
-        // Dibujar algo simple
-        gbt_borrar_backbuffer(0);          // limpiar pantalla
-        gbt_dibujar_pixel(50, 50, 1);      // pixel rojo
-        gbt_dibujar_pixel(60, 60, 2);      // pixel verde
-        gbt_dibujar_pixel(70, 70, 3);      // pixel azul
-        gbt_volcar_backbuffer();           // mostrar en ventana
+        dibujarPieza(3, 3, piezaL, posX, posY, TAM_BLOQUE_P, 4);
 
-        gbt_esperar(16); // ~60 FPS
+        gbt_volcar_backbuffer();
+        gbt_esperar(16);
     }
 
-    // Liberar recursos
-    gbt_temporizador_destruir(timer);
     gbt_destruir_ventana();
     gbt_cerrar();
     return 0;
 }
+
+
