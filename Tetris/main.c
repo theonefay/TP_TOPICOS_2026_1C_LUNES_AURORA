@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 #include "GBT/gbt.h"
 #include "Dibujo.h"
 #include "Piezas.h"
@@ -6,7 +9,7 @@
 #define COLUMNAS 15
 #define TAM_BLOQUE 20 //cada posicion es de 20 pixeles
 #define GROSOR_MARCO 8
-#define TAM_BLOQUE_P 10 //cada pieza usa 10 pixeles por posicion
+#define TAM_BLOQUE_P 20 //cada pieza usa 20 pixeles por posicion
 
 // Paleta de colores
 tGBT_ColorRGB paletaCGA[16] = {
@@ -41,10 +44,14 @@ int main() {
 
     // Posición inicial de la pieza O
     int posX = COLUMNAS/2 * TAM_BLOQUE;
-    int posY = 8;
+    int posY = 16;
 
-    while (1) {
-        gbt_borrar_backbuffer(0);
+    uint8_t corriendo = 1;
+    Pieza pActual;
+
+    while (corriendo) {
+        gbt_procesar_entrada();
+        eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
         // Dibujar tablero lógico
         dibujarTablero(FILAS, COLUMNAS, tablero, TAM_BLOQUE);
@@ -52,9 +59,21 @@ int main() {
         // Dibujar marco alrededor
         dibujarMarco(FILAS, COLUMNAS, TAM_BLOQUE, GROSOR_MARCO,9,12,14, 11);
 
+        if (tecla == GBTK_ESCAPE) {
+            corriendo = 0;
+            printf("Saliendo del ejemplo\n");
+        } else if (tecla != GBTK_DESCONOCIDA) {
+            gbt_borrar_backbuffer(0);
+            nuevaPieza(&pActual);
 
+            dibujarPieza(3, 3, pActual.matriz, pActual.posX, pActual.posY, TAM_BLOQUE_P, pActual.color);
 
-        dibujarPieza(3, 3, piezaL, posX, posY, TAM_BLOQUE_P, 4);
+            if (tecla == GBTK_s) {
+                dibujarPieza(3, 3, piezaO, posX, posY, TAM_BLOQUE_P, 0);
+                dibujarPieza(3, 3, piezaO, posX, posX+20, TAM_BLOQUE_P, 14);
+            }
+
+        }
 
         gbt_volcar_backbuffer();
         gbt_esperar(16);

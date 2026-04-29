@@ -1,4 +1,5 @@
 #include "Dibujo.h"
+#include <unistd.h>
 //mi funcion dibujar tablero recorre todas las posiciones de la matriz de 15 filas
 //y 15 columnas y en todas al encontrarlas en cero no les dibuja nada y por lo tanto queda en negro
 void dibujarTablero(int filas, int columnas, int tablero[filas][columnas], int tamBloque) {
@@ -60,6 +61,7 @@ void dibujarPieza(int filas, int cols, int pieza[filas][cols], int posX, int pos
                 for (int y = 0; y < tamBloque; y++) {
                     for (int x = 0; x < tamBloque; x++) {
                         gbt_dibujar_pixel(posX + j*tamBloque + x, posY + i*tamBloque + y, color);
+                        sleep(1);
                     }
                 }
             }
