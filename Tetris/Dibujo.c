@@ -61,7 +61,6 @@ void dibujarPieza(int filas, int cols, int pieza[filas][cols], int posX, int pos
                 for (int y = 0; y < tamBloque; y++) {
                     for (int x = 0; x < tamBloque; x++) {
                         gbt_dibujar_pixel(posX + j*tamBloque + x, posY + i*tamBloque + y, color);
-                        sleep(1);
                     }
                 }
             }
