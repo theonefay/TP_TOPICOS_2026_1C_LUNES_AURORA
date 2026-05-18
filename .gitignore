@@ -2,5 +2,5 @@
 bin/
 obj/
 .layout
-Tetris.depend
-Tetris.layout
+Tetris/Tetris.depend
+Tetris/Tetris.layout
