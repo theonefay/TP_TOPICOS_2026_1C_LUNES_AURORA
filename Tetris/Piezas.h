@@ -59,4 +59,6 @@ int puedeMoverAbajo(Pieza *p, int tablero[FILAS][COLUMNAS], int grosorMarco);
 
 void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]);
 
+void rotarPieza(Pieza *p);
+
 #endif // PIEZAS_H_INCLUDED
