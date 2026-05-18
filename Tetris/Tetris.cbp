@@ -34,11 +34,21 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="GBT_v2026.1C.01/include" />
+			<Add directory="../Tetris" />
 		</Compiler>
 		<Linker>
 			<Add library="GBT_v2026.1C.01/lib/libgbt.a" />
 			<Add directory="GBT_v2026.1C.01/lib" />
 		</Linker>
+		<Unit filename="Constantes.h" />
+		<Unit filename="Dibujo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Dibujo.h" />
+		<Unit filename="Piezas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Piezas.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

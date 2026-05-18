@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1777405075 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
+1778193069 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
 	"GBT/gbt.h"
 	"Dibujo.h"
 	"Piezas.h"
+	"Constantes.h"
 
 1777158560 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -26,14 +27,122 @@
 	<stdlib.h>
 	<stdint.h>
 
-1777405031 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.c
-	"piezas.h"
+1778188970 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.c
+	<stdlib.h>
+	<string.h>
+	"Piezas.h"
+	"Constantes.h"
 
-1777404321 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.h
+1777426865 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.h
+	"Constantes.h"
 
-1777404578 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.c
+1778193554 source:c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.c
 	"Dibujo.h"
+	"Constantes.h"
+	"Piezas.h"
 
-1777403393 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.h
+1777426864 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.h
+	"Constantes.h"
 	"GBT/gbt.h"
+	"Piezas.h"
+
+1778193026 c:\users\brb\desktop\universidad\materias\topicos de programacion\trabajo final tetris\tp_topicos_2026_1c_lunes_aurora\tetris\constantes.h
+
+1778194877 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.c
+	"Dibujo.h"
+	"Constantes.h"
+	"Piezas.h"
+
+1778194877 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.h
+	"Constantes.h"
+	"GBT/gbt.h"
+	"Piezas.h"
+
+1778195908 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\constantes.h
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.h
+	"Constantes.h"
+
+1778200428 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
+	"GBT/gbt.h"
+	"Dibujo.h"
+	"Piezas.h"
+	"Constantes.h"
+
+1778200428 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f)\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.c
+	<stdlib.h>
+	<string.h>
+	"Piezas.h"
+	"Constantes.h"
+
+1778194877 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.c
+	"Dibujo.h"
+	"Constantes.h"
+	"Piezas.h"
+
+1778194877 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\dibujo.h
+	"Constantes.h"
+	"GBT/gbt.h"
+	"Piezas.h"
+
+1778195908 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\constantes.h
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778194103 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778628568 c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.h
+	"Constantes.h"
+
+1778628708 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\main.c
+	"GBT/gbt.h"
+	"Dibujo.h"
+	"Piezas.h"
+	"Constantes.h"
+
+1778628708 source:c:\users\rodrigo\downloads\tp_topicos_2026_1c_lunes_aurora (f 2)\tp_topicos_2026_1c_lunes_aurora\tetris\piezas.c
+	<stdlib.h>
+	<string.h>
+	"Piezas.h"
+	"Constantes.h"
 

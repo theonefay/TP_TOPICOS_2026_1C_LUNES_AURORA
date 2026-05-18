@@ -1,7 +1,9 @@
 #ifndef DIBUJOS_H
 #define DIBUJOS_H
 
+#include "Constantes.h"
 #include "GBT/gbt.h"
+#include "Piezas.h"
 
 // Función para dibujar el tablero completo
 void dibujarTablero(int filas, int columnas, int tablero[filas][columnas], int tamBloque);
@@ -10,7 +12,11 @@ void dibujarTablero(int filas, int columnas, int tablero[filas][columnas], int t
 void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,
                   int colorSuperior, int colorInferior, int colorIzquierdo, int colorDerecho);
 
-// Función para dibujar una pieza en una posición
-void dibujarPieza(int filas, int cols, int pieza[filas][cols], int posX, int posY, int tamBloque, int color);
+// Función para dibujar una matriz genérica en una posición de celda
+void dibujarMatriz(int filas, int cols, int pieza[filas][cols],
+                   int posCeldaX, int posCeldaY, int tamBloque, int color);
 
-#endif
+// Función para dibujar directamente una Pieza estructurada
+void dibujarPiezaStruct(Pieza *p, int tamBloque);
+
+#endif // DIBUJOS_H
