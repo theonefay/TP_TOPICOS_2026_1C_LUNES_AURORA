@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "GBT/gbt.h"
 #include "Dibujo.h"
 #include "Piezas.h"
@@ -49,13 +50,19 @@ int main() {
 
     Pieza piezaActual;
     nuevaPieza(&piezaActual);
+    uint8_t corriendo = 1;
 
     tGBT_Temporizador* temporizador_gravedad = gbt_temporizador_crear(1.0);
     tGBT_Temporizador* temporizador_mov_bloques = gbt_temporizador_crear(0.2);
     tGBT_Temporizador* temporizador_fijacion = gbt_temporizador_crear(0.5);
 
-    while (1) {
+    while (corriendo) {
         gbt_procesar_entrada();
+
+        if (gbt_tecla_presionada(GBTK_ESCAPE)) {
+            corriendo = 0;
+            printf("Saliendo del Tetris\n");
+        }
 
         if (gbt_tecla_presionada(GBTK_IZQUIERDA)) {
             if (puedeMoverHorizontal(&piezaActual, tablero, -1)) {
