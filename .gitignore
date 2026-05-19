@@ -13,6 +13,7 @@
 *.tmp
 
 # Directorios de binarios
-/bin/
+Tetris/bin/
 /obj/
 /build/
+.git
