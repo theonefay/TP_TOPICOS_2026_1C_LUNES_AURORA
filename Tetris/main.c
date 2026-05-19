@@ -1,68 +1,195 @@
 #include "GBT/gbt.h"
 #include "Dibujo.h"
 #include "Piezas.h"
-
-#define FILAS 15
-#define COLUMNAS 15
-#define TAM_BLOQUE 20 //cada posicion es de 20 pixeles
-#define GROSOR_MARCO 8
-#define TAM_BLOQUE_P 10 //cada pieza usa 10 pixeles por posicion
-
-// Paleta de colores
+#include "Constantes.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int score = 0;
 tGBT_ColorRGB paletaCGA[16] = {
-    {0x00, 0x00, 0x00}, // 0: Negro
-    {0x00, 0x00, 0xAA}, // 1: Azul
-    {0x00, 0xAA, 0x00}, // 2: Verde
-    {0x00, 0xAA, 0xAA}, // 3: Cian
-    {0xAA, 0x00, 0x00}, // 4: Rojo
-    {0xAA, 0x00, 0xAA}, // 5: Magenta
-    {0xAA, 0x55, 0x00}, // 6: Marrón
-    {0xAA, 0xAA, 0xAA}, // 7: Gris claro
-    {0x55, 0x55, 0x55}, // 8: Gris oscuro
-    {0x55, 0x55, 0xFF}, // 9: Azul brillante
-    {0x55, 0xFF, 0x55}, // 10: Verde brillante
-    {0x55, 0xFF, 0xFF}, // 11: Cian brillante
-    {0xFF, 0x55, 0x55}, // 12: Rojo brillante
-    {0xFF, 0x55, 0xFF}, // 13: Magenta brillante
-    {0xFF, 0xFF, 0x55}, // 14: Amarillo
-    {0xFF, 0xFF, 0xFF}  // 15: Blanco (transparente en GBT)
+    {0x00, 0x00, 0x00}, {0x00, 0x00, 0xAA}, {0x00, 0xAA, 0x00}, {0x00, 0xAA, 0xAA},
+    {0xAA, 0x00, 0x00}, {0xAA, 0x00, 0xAA}, {0xAA, 0x55, 0x00}, {0xAA, 0xAA, 0xAA},
+    {0x55, 0x55, 0x55}, {0x55, 0x55, 0xFF}, {0x55, 0xFF, 0x55}, {0x55, 0xFF, 0xFF},
+    {0xFF, 0x55, 0x55}, {0xFF, 0x55, 0xFF}, {0xFF, 0xFF, 0x55}, {0xFF, 0xFF, 0xFF}
 };
 
+int tablero[FILAS][COLUMNAS];
 
-int tablero[FILAS][COLUMNAS] = {0};
 
-int main() {
-    if (gbt_iniciar() < 0) return -1;
 
-    gbt_crear_ventana("Tetris Tablero", COLUMNAS*TAM_BLOQUE, FILAS*TAM_BLOQUE, 2);
+int main()
+{
+    srand(time(NULL));// cambia la secuencia de random en cada partida
 
-    // inicia la paleta de colores que voy a usar
+    if (gbt_iniciar() < 0)
+    {
+        return -1;
+    }
+
+    gbt_crear_ventana("Tetris", ANCHO_VENTANA, ALTO_VENTANA, 1);
+
     gbt_aplicar_paleta(paletaCGA, 16, GBT_FORMATO_888);
 
-    // Posición inicial de la pieza O
-    int posX = COLUMNAS/2 * TAM_BLOQUE;
-    int posY = 8;
+    // Inicializar tablero en vacio
+    for (int i = 0; i < FILAS; i++)
+    {
+        for (int j = 0; j < COLUMNAS; j++)
+        {
+            tablero[i][j] = VACIO;
+        }
+    }
 
-    while (1) {
+    Pieza piezaActual; //creo mi pieza actual
+    nuevaPieza(&piezaActual);//llamo a la funcion de nueva pieza y le envio la direccion de la que cree en main
+
+
+   //creacion de temporizadores
+    tGBT_Temporizador* temporizador_gravedad =gbt_temporizador_crear(1.0);
+
+    tGBT_Temporizador* temporizador_mov_bloques =gbt_temporizador_crear(0.2);
+
+    tGBT_Temporizador* temporizador_fijacion =gbt_temporizador_crear(0.5);
+
+
+    while (1)//bucle principal del juego
+    {
+        gbt_procesar_entrada();
+
+        // Movimiento izquierda
+        if (gbt_tecla_presionada(GBTK_IZQUIERDA))
+        {
+            if (puedeMoverHorizontal(&piezaActual, tablero, -1))
+            {
+                piezaActual.posX--;
+            }
+        }
+        else if (gbt_tecla_sostenida(GBTK_IZQUIERDA))
+        {
+            if (gbt_temporizador_consumir(temporizador_mov_bloques))
+            {
+                if (puedeMoverHorizontal(&piezaActual, tablero, -1))
+                {
+                    piezaActual.posX--;
+                }
+            }
+        }
+
+        // Movimiento derecha
+        if (gbt_tecla_presionada(GBTK_DERECHA))
+        {
+            if (puedeMoverHorizontal(&piezaActual, tablero, 1))
+            {
+                piezaActual.posX++;
+            }
+        }
+        else if (gbt_tecla_sostenida(GBTK_DERECHA))
+        {
+            if (gbt_temporizador_consumir(temporizador_mov_bloques))//si se consumio el tiempo se puede mover
+            {
+                if (puedeMoverHorizontal(&piezaActual, tablero, 1))
+                {
+                    piezaActual.posX++;
+                }
+            }
+        }
+
+        // Movimiento hacia abajo
+        if (gbt_tecla_presionada(GBTK_ABAJO))
+        {
+            if (puedeMoverAbajo(&piezaActual, tablero, GROSOR_MARCO))
+            {
+                piezaActual.posY++;
+            }
+            else
+            {
+                fijarPieza(&piezaActual, tablero);
+
+                limpiarLineas(tablero);
+
+                nuevaPieza(&piezaActual);
+
+                if (GameOver(&piezaActual, tablero))
+                {
+                    break;
+                }
+            }
+        }
+
+
+        if (gbt_tecla_sostenida(GBTK_ABAJO))
+        {
+            if (gbt_temporizador_consumir(temporizador_mov_bloques))
+            {
+                if (puedeMoverAbajo(&piezaActual, tablero, GROSOR_MARCO))
+                {
+                    piezaActual.posY++;
+                }
+                else
+                {
+                    fijarPieza(&piezaActual, tablero);
+
+                    limpiarLineas(tablero);
+
+                    nuevaPieza(&piezaActual);
+
+                    if (GameOver(&piezaActual, tablero))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Rotaci�n
+        if (gbt_tecla_presionada(GBTK_ARRIBA))
+        {
+            rotarPieza(&piezaActual, tablero);
+        }
+
+        // Gravedad
+        if (puedeMoverAbajo(&piezaActual, tablero, GROSOR_MARCO))
+        {
+            if (gbt_temporizador_consumir(temporizador_gravedad))
+            {
+                piezaActual.posY++;
+            }
+        }
+        else
+        {
+            if (gbt_temporizador_consumir(temporizador_fijacion))
+            {
+                fijarPieza(&piezaActual, tablero);
+
+                limpiarLineas(tablero);
+
+                nuevaPieza(&piezaActual);
+
+                //funcion dibujar panel
+
+                if (GameOver(&piezaActual, tablero))
+                {
+                    break;
+                }
+            }
+        }
+
+        // que todo se dibuje en pantalla
         gbt_borrar_backbuffer(0);
 
-        // Dibujar tablero lógico
-        dibujarTablero(FILAS, COLUMNAS, tablero, TAM_BLOQUE);
+        dibujarMarco(FILAS,COLUMNAS,TAM_BLOQUE,GROSOR_MARCO,9,12,14,11);
 
-        // Dibujar marco alrededor
-        dibujarMarco(FILAS, COLUMNAS, TAM_BLOQUE, GROSOR_MARCO,9,12,14, 11);
+        dibujarTablero(FILAS,COLUMNAS,tablero,TAM_BLOQUE);
 
-
-
-        dibujarPieza(3, 3, piezaL, posX, posY, TAM_BLOQUE_P, 4);
+        dibujarPiezaStruct(&piezaActual,TAM_BLOQUE);
 
         gbt_volcar_backbuffer();
+
         gbt_esperar(16);
     }
 
     gbt_destruir_ventana();
+
     gbt_cerrar();
+
     return 0;
 }
-
-
