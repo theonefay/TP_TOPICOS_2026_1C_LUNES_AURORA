@@ -1,4 +1,18 @@
-.depend
-bin/
-obj/
-.layout
+# Archivos de Code::Blocks
+*.layout
+*.depend
+*.cbp
+
+# Archivos de compilación
+*.o
+*.exe
+*.out
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Directorios de binarios
+/bin/
+/obj/
+/build/
