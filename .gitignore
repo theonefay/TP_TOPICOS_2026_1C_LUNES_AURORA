@@ -1,8 +1,18 @@
-.depend
-bin/
-obj/
-.layout
-Tetris/Tetris.depend
-Tetris/Tetris.layout
-cd
-git
+# Archivos de Code::Blocks
+*.layout
+*.depend
+
+# Archivos de compilación
+*.o
+*.exe
+*.out
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Directorios de binarios
+Tetris/bin/
+/obj/
+/build/
+.git

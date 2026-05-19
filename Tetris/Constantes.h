@@ -9,7 +9,7 @@
 #define FILAS 20
 #define COLUMNAS 10
 
-// Layout gráfico
+// Layout grï¿½fico
 #define TAM_BLOQUE 20
 #define TABLERO_X 220
 #define TABLERO_Y 40
@@ -17,8 +17,10 @@
 #define PANEL_X 20
 #define PANEL_Y TABLERO_Y
 
-// Gráficos
-#define GROSOR_MARCO 8
+// Grï¿½ficos
+
+#define GROSOR_MARCO 15
+
 
 // Valores especiales
 #define VACIO -1

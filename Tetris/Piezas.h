@@ -3,7 +3,7 @@
 
 #include "Constantes.h"
 
-// Enumeración de tipos de piezas para llamarlas por número
+// Enumeraciï¿½n de tipos de piezas para llamarlas por nï¿½mero
 typedef enum {
     PIEZA_I = 1,
     PIEZA_J,
@@ -14,7 +14,7 @@ typedef enum {
     PIEZA_Z
 } TipoPieza;
 
-// Enumeración de colores CGA (0–15)
+// Enumeraciï¿½n de colores CGA (0ï¿½15)
 typedef enum {
     COLOR_NEGRO = 0,
     COLOR_AZUL,
@@ -34,7 +34,7 @@ typedef enum {
     COLOR_BLANCO
 } ColorCGA;
 
-// Declaración de las matrices de cada pieza
+// Declaraciï¿½n de las matrices de cada pieza
 extern int piezaI[3][3];
 extern int piezaJ[3][3];
 extern int piezaL[3][3];
@@ -53,12 +53,13 @@ typedef struct {
 } Pieza;
 
 // Prototipos de funciones
+void rotarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]);
 void nuevaPieza(Pieza *p);
-
+int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS]);
 int puedeMoverAbajo(Pieza *p, int tablero[FILAS][COLUMNAS], int grosorMarco);
-
+void limpiarLineas(int tablero[FILAS][COLUMNAS]);
 void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]);
-
-void rotarPieza(Pieza *p);
+int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS]);
+int puedeMoverHorizontal(Pieza *p, int tablero[FILAS][COLUMNAS], int direccion);
 
 #endif // PIEZAS_H_INCLUDED
