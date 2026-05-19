@@ -3,6 +3,7 @@
 #include "Piezas.h"
 
 
+
 void dibujarBloque(int xPantalla, int yPantalla, int tam, int color)
 {
     int grosor = 2; // grosor del borde
@@ -91,12 +92,16 @@ void dibujarTablero(int filas, int columnas, int tablero[filas][columnas], int t
             if (valor != VACIO)
             {
                 dibujarBloque(TABLERO_X + j * tamBloque,TABLERO_Y + i * tamBloque,tamBloque,valor);
+
+
             }
         }
     }
 }
 
+
 void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,int colorSuperior, int colorInferior, int colorIzquierdo, int colorDerecho) {
+
 
     int ancho = columnas * tamBloque;
     int alto  = filas * tamBloque;
@@ -136,7 +141,7 @@ void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,int colorSu
     }
 }
 
-// Dibuja una pieza desde matriz genérica
+// Dibuja una pieza desde matriz genï¿½rica
 void dibujarMatriz(int filas, int cols, int pieza[filas][cols],
                    int posCeldaX, int posCeldaY, int tamBloque, int color)
 {

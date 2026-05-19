@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "GBT/gbt.h"
 #include "Dibujo.h"
 #include "Piezas.h"
@@ -140,7 +141,7 @@ int main()
             }
         }
 
-        // Rotación
+        // Rotaciï¿½n
         if (gbt_tecla_presionada(GBTK_ARRIBA))
         {
             rotarPieza(&piezaActual, tablero);
