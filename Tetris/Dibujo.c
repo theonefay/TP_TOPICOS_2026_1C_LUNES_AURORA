@@ -162,4 +162,77 @@ void dibujarPiezaStruct(Pieza *p, int tamBloque) {
     dibujarMatriz(3, 3, p->matriz, p->posX, p->posY, tamBloque, p->color);
 }
 
+void dibujarPanel(int x, int y, int ancho, int alto, int color)
+{
+    // superior
+    for (int i = 0; i < ancho; i++)
+    {
+        gbt_dibujar_pixel(x + i, y, color);
+    }
 
+    // inferior
+    for (int i = 0; i < ancho; i++)
+    {
+        gbt_dibujar_pixel(x + i, y + alto, color);
+    }
+
+    // izquierda
+    for (int i = 0; i < alto; i++)
+    {
+        gbt_dibujar_pixel(x, y + i, color);
+    }
+
+    // derecha
+    for (int i = 0; i < alto; i++)
+    {
+        gbt_dibujar_pixel(x + ancho, y + i, color);
+    }
+}
+void dibujarMarcoPanel(
+    int x,
+    int y,
+    int ancho,
+    int alto,
+    int grosor,
+    int colorSuperior,
+    int colorInferior,
+    int colorIzquierdo,
+    int colorDerecho
+)
+{
+    // superior
+    for (int py = 0; py < grosor; py++)
+    {
+        for (int px = 0; px < ancho; px++)
+        {
+            gbt_dibujar_pixel(x + px, y + py, colorSuperior);
+        }
+    }
+
+    // inferior
+    for (int py = alto - grosor; py < alto; py++)
+    {
+        for (int px = 0; px < ancho; px++)
+        {
+            gbt_dibujar_pixel(x + px, y + py, colorInferior);
+        }
+    }
+
+    // izquierdo
+    for (int px = 0; px < grosor; px++)
+    {
+        for (int py = 0; py < alto; py++)
+        {
+            gbt_dibujar_pixel(x + px, y + py, colorIzquierdo);
+        }
+    }
+
+    // derecho
+    for (int px = ancho - grosor; px < ancho; px++)
+    {
+        for (int py = 0; py < alto; py++)
+        {
+            gbt_dibujar_pixel(x + px, y + py, colorDerecho);
+        }
+    }
+}

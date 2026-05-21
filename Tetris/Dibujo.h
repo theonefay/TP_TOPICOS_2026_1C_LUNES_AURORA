@@ -19,6 +19,20 @@ void dibujarMatriz(int filas, int cols, int pieza[filas][cols],
 // Función para dibujar directamente una Pieza estructurada
 void dibujarPiezaStruct(Pieza *p, int tamBloque);
 
+
+void dibujarPanel(int x, int y, int ancho, int alto, int color);
+void dibujarMarcoPanel(
+    int x,
+    int y,
+    int ancho,
+    int alto,
+    int grosor,
+    int colorSuperior,
+    int colorInferior,
+    int colorIzquierdo,
+    int colorDerecho
+);
+
 #endif // DIBUJOS_H
 
 

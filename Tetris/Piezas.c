@@ -246,8 +246,10 @@ int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS])
 
 
 
-void limpiarLineas(int tablero[FILAS][COLUMNAS])
+int limpiarLineas(int tablero[FILAS][COLUMNAS])
 {
+    int lineasEliminadas = 0;
+
     for (int i = FILAS - 1; i >= 0; i--)
     {
         int completa = 1;
@@ -263,6 +265,8 @@ void limpiarLineas(int tablero[FILAS][COLUMNAS])
 
         if (completa)
         {
+            lineasEliminadas++;
+
             // bajar filas
             for (int y = i; y > 0; y--)
             {
@@ -278,9 +282,12 @@ void limpiarLineas(int tablero[FILAS][COLUMNAS])
                 tablero[0][x] = VACIO;
             }
 
+            // volver a revisar la misma fila
             i++;
         }
     }
+
+    return lineasEliminadas;
 }
 int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS])
 {
@@ -302,4 +309,24 @@ int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS])
     }
 
     return 0;
+}
+int calcularPuntaje(int lineas)
+{
+    switch (lineas)
+    {
+        case 1:
+            return 100;
+
+        case 2:
+            return 300;
+
+        case 3:
+            return 500;
+
+        case 4:
+            return 800;
+
+        default:
+            return 0;
+    }
 }

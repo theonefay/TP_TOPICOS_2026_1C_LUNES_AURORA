@@ -25,4 +25,10 @@
 // Valores especiales
 #define VACIO -1
 
+#define PANEL_ANCHO 150
+#define PANEL_ALTO 250
+
+
+
 #endif // CONSTANTES_H
+
