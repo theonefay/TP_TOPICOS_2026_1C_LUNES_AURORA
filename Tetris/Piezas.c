@@ -47,82 +47,51 @@ int piezaZ[3][3] = {
     {0,0,0}
 };
 
-static void copiarMatriz(int origen[3][3], int destino[3][3]) {
-    memcpy(destino, origen, sizeof(int) * 3 * 3);
-}
 
+
+// Crea una nueva pieza aleatoria y la coloca en la parte superior del tablero
 void nuevaPieza(Pieza *p) {
-    int tipo = (rand() % 7) + 1;// el tipo va a ser aleatorio
+    // Elegir un tipo de pieza al azar (1 a 7)
+    int tipo = (rand() % 7) + 1;
 
-
+    // Copiar la matriz correspondiente y asignar el tipo
     switch (tipo) {
-        case PIEZA_I:
-            copiarMatriz(piezaI, p->matriz);//copia la plantilla del mino en el campo matriz de la pieza actual
-            p->tipo = 'I';//indica de que tipo es en el campo tipo de la pieza actual
-            break;
-
-        case PIEZA_J:
-            copiarMatriz(piezaJ, p->matriz);
-            p->tipo = 'J';
-            break;
-
-        case PIEZA_L:
-            copiarMatriz(piezaL, p->matriz);
-            p->tipo = 'L';
-            break;
-
-        case PIEZA_O:
-            copiarMatriz(piezaO, p->matriz);
-            p->tipo = 'O';
-            break;
-
-        case PIEZA_S:
-            copiarMatriz(piezaS, p->matriz);
-            p->tipo = 'S';
-            break;
-
-        case PIEZA_T:
-            copiarMatriz(piezaT, p->matriz);
-            p->tipo = 'T';
-            break;
-
-        case PIEZA_Z:
-            copiarMatriz(piezaZ, p->matriz);
-            p->tipo = 'Z';
-            break;
+        case PIEZA_I: memcpy(p->matriz, piezaI, sizeof(p->matriz)); p->tipo = 'I'; break;
+        case PIEZA_J: memcpy(p->matriz, piezaJ, sizeof(p->matriz)); p->tipo = 'J'; break;
+        case PIEZA_L: memcpy(p->matriz, piezaL, sizeof(p->matriz)); p->tipo = 'L'; break;
+        case PIEZA_O: memcpy(p->matriz, piezaO, sizeof(p->matriz)); p->tipo = 'O'; break;
+        case PIEZA_S: memcpy(p->matriz, piezaS, sizeof(p->matriz)); p->tipo = 'S'; break;
+        case PIEZA_T: memcpy(p->matriz, piezaT, sizeof(p->matriz)); p->tipo = 'T'; break;
+        case PIEZA_Z: memcpy(p->matriz, piezaZ, sizeof(p->matriz)); p->tipo = 'Z'; break;
     }
 
-    p->posX = COLUMNAS / 2 - 1;// la pieza aparece en el centro
-    p->posY = 0;// la pieza aparece arriba de todo del tablero
-    p->color = 9 + rand() % 6;// se le asigna un color random
+    // Posición inicial: centro arriba del tablero
+    p->posX = COLUMNAS / 2 - 1;
+    p->posY = 0;
+
+    // Color aleatorio (entre 9 y 14)
+    p->color = 9 + rand() % 6;
 }
 
 
-int puedeMoverHorizontal(Pieza *p, int tablero[FILAS][COLUMNAS], int direccion)
-{
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            if (p->matriz[i][j]==1)//solo acceden las posicion con un 1
-            {
-                int nuevaY = p->posY + i;//ubica el casillero en el tablero
-                int nuevaX = p->posX + j + direccion;//ubica el casillero en el tablero + el movimiento
 
-                if (nuevaX < 0 || nuevaX >= COLUMNAS)//verifica si no se choco con los bordes
-                {
-                    return 0;
-                }
+// Verifica si la pieza puede moverse a izquierda (-1) o derecha (+1)
+int puedeMoverHorizontal(Pieza *p, int tablero[FILAS][COLUMNAS], int direccion) {
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            if (p->matriz[fila][col] == 1) {
+                int nuevaFila = p->posY + fila;
+                int nuevaCol = p->posX + col + direccion;
 
-                if (nuevaY >= 0 && nuevaY < FILAS && tablero[nuevaY][nuevaX] != VACIO)//verifca que no choque con otra pieza
-                {
-                    return 0;
-                }
+                // Si se sale del tablero → no puede moverse
+                if (nuevaCol < 0 || nuevaCol >= COLUMNAS) return 0;
+
+                // Si choca con otra pieza → no puede moverse
+                if (nuevaFila >= 0 && nuevaFila < FILAS && tablero[nuevaFila][nuevaCol] != VACIO) return 0;
             }
         }
     }
-
-    return 1;
+    return 1; // Movimiento válido
 }
 
 
@@ -130,114 +99,88 @@ int puedeMoverHorizontal(Pieza *p, int tablero[FILAS][COLUMNAS], int direccion)
 
 
 
+// Verifica si la pieza puede bajar una fila
 int puedeMoverAbajo(Pieza *p, int tablero[FILAS][COLUMNAS], int grosorMarco) {
-    (void)grosorMarco;
+    (void)grosorMarco; // no se usa
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (p->matriz[i][j]) {
-                int nuevaY = p->posY + i + 1;
-                int nuevaX = p->posX + j;
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            if (p->matriz[fila][col] == 1) {
+                int nuevaFila = p->posY + fila + 1;
+                int nuevaCol = p->posX + col;
 
-                if (nuevaY >= FILAS) {
-                    return 0;
-                }
+                // Si toca el fondo → no puede bajar
+                if (nuevaFila >= FILAS) return 0;
 
-                if (nuevaX < 0 || nuevaX >= COLUMNAS) {
-                    return 0;
-                }
-
-                if (tablero[nuevaY][nuevaX] != VACIO) {
-                    return 0;
-                }
+                // Si choca con otra pieza → no puede bajar
+                if (tablero[nuevaFila][nuevaCol] != VACIO) return 0;
             }
         }
     }
-
-    return 1;
+    return 1; // Puede bajar
 }
 
-void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+
+// Rota la pieza en sentido horario
+void rotarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+    if (p->tipo == 'O') return; // El cuadrado no rota
+
+    int copia[3][3];
+    memcpy(copia, p->matriz, sizeof(copia)); // Guardar copia
+
+    // Transponer matriz
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (p->matriz[i][j]==1) {
-                int y = p->posY + i;
-                int x = p->posX + j;
-
-                if (y >= 0 && y < FILAS && x >= 0 && x < COLUMNAS) {
-                    tablero[y][x] = p->color;//pone en donde habia un 1 el numero del color que se pintara
-                }
-            }
-        }
-    }
-}
-
-void rotarPieza(Pieza *p, int tablero[FILAS][COLUMNAS])
-{
-    if (p->tipo == 'O')
-    {
-        return;
-    }
-
-    int backup[3][3];
-
-    memcpy(backup, p->matriz, sizeof(backup));
-
-    int aux;
-
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = i + 1; j < N; j++)
-        {
-            aux = p->matriz[i][j];
+        for (int j = i + 1; j < 3; j++) {
+            int aux = p->matriz[i][j];
             p->matriz[i][j] = p->matriz[j][i];
             p->matriz[j][i] = aux;
         }
     }
 
-    for (int i = 0; i < N; i++)
-    {
-        aux = p->matriz[i][0];
-        p->matriz[i][0] = p->matriz[i][N - 1];
-        p->matriz[i][N - 1] = aux;
+    // Invertir columnas (rotación completa)
+    for (int i = 0; i < 3; i++) {
+        int aux = p->matriz[i][0];
+        p->matriz[i][0] = p->matriz[i][2];
+        p->matriz[i][2] = aux;
     }
 
-    if (!puedeRotar(p, tablero))
-    {
-        memcpy(p->matriz, backup, sizeof(backup));
-    }
+    // Si no puede rotar, volver a la copia
+    if (!puedeRotar(p, tablero)) memcpy(p->matriz, copia, sizeof(copia));
 }
 
 
-int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS])
-{
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            if (p->matriz[i][j])
-            {
-                int x = p->posX + j;
-                int y = p->posY + i;
+// Copia la pieza al tablero (la fija en su lugar)
+void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            if (p->matriz[fila][col] == 1) {
+                int y = p->posY + fila;
+                int x = p->posX + col;
 
-                if (x < 0 || x >= COLUMNAS)
-                {
-                    return 0;
-                }
-
-                if (y < 0 || y >= FILAS)
-                {
-                    return 0;
-                }
-
-                if (tablero[y][x] != VACIO)
-                {
-                    return 0;
+                // Si está dentro del tablero, guarda el color
+                if (y >= 0 && y < FILAS && x >= 0 && x < COLUMNAS) {
+                    tablero[y][x] = p->color;
                 }
             }
         }
     }
+}
 
+
+// Verifica si la rotación es válida (no choca ni se sale)
+int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            if (p->matriz[fila][col] == 1) {
+                int x = p->posX + col;
+                int y = p->posY + fila;
+
+                if (x < 0 || x >= COLUMNAS) return 0; // fuera de tablero
+                if (y < 0 || y >= FILAS) return 0;    // fuera de tablero
+                if (tablero[y][x] != VACIO) return 0; // celda ocupada
+            }
+        }
+    }
     return 1;
 }
 
@@ -246,87 +189,77 @@ int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS])
 
 
 
-int limpiarLineas(int tablero[FILAS][COLUMNAS])
-{
+
+// Elimina las filas completas y baja las superiores
+int limpiarLineas(int tablero[FILAS][COLUMNAS]) {
     int lineasEliminadas = 0;
 
-    for (int i = FILAS - 1; i >= 0; i--)
-    {
+    for (int fila = FILAS - 1; fila >= 0; fila--) {
         int completa = 1;
 
-        for (int j = 0; j < COLUMNAS; j++)
-        {
-            if (tablero[i][j] == VACIO)
-            {
+        // Verificar si la fila está llena
+        for (int col = 0; col < COLUMNAS; col++) {
+            if (tablero[fila][col] == VACIO) {
                 completa = 0;
                 break;
             }
         }
 
-        if (completa)
-        {
+        // Si está completa → eliminar
+        if (completa) {
             lineasEliminadas++;
 
-            // bajar filas
-            for (int y = i; y > 0; y--)
-            {
-                for (int x = 0; x < COLUMNAS; x++)
-                {
+            // Bajar todas las filas superiores
+            for (int y = fila; y > 0; y--) {
+                for (int x = 0; x < COLUMNAS; x++) {
                     tablero[y][x] = tablero[y - 1][x];
                 }
             }
 
-            // vaciar fila superior
-            for (int x = 0; x < COLUMNAS; x++)
-            {
+            // Vaciar la fila superior
+            for (int x = 0; x < COLUMNAS; x++) {
                 tablero[0][x] = VACIO;
             }
 
-            // volver a revisar la misma fila
-            i++;
+            fila++; // Revisar la misma fila otra vez
         }
     }
-
     return lineasEliminadas;
 }
-int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS])
-{
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            if (p->matriz[i][j])
-            {
-                int y = p->posY + i;
-                int x = p->posX + j;
 
-                if (tablero[y][x] != VACIO)
-                {
-                    return 1;
-                }
+
+
+// Verifica si la nueva pieza choca al aparecer → fin del juego
+int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            if (p->matriz[fila][col] == 1) {
+                int y = p->posY + fila;
+                int x = p->posX + col;
+
+                if (tablero[y][x] != VACIO) return 1; // choque → game over
             }
         }
     }
-
-    return 0;
+    return 0; // sigue el juego
 }
+
+// Calcula el puntaje según la cantidad de líneas eliminadas
 int calcularPuntaje(int lineas)
 {
+    // Usamos un switch para asignar el puntaje
     switch (lineas)
     {
         case 1:
-            return 100;
-
+            return 100;   // 1 línea → 100 puntos
         case 2:
-            return 300;
-
+            return 300;   // 2 líneas → 300 puntos
         case 3:
-            return 500;
-
+            return 500;   // 3 líneas → 500 puntos
         case 4:
-            return 800;
-
+            return 800;   // 4 líneas (Tetris) → 800 puntos
         default:
-            return 0;
+            return 0;     // Si no se eliminó ninguna línea → 0 puntos
     }
 }
+

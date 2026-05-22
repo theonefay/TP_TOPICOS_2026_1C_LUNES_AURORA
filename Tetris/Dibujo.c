@@ -2,78 +2,50 @@
 #include "Constantes.h"
 #include "Piezas.h"
 #include "FuenteLetras.h"
-#include "Fuente.h"
 #include <string.h>
 
 
+// Dibuja un bloque cuadrado con borde claro/oscuro
 void dibujarBloque(int xPantalla, int yPantalla, int tam, int color)
 {
-    int grosor = 2; // grosor del borde
-    int color_sup = 8;
-    int color_inf = 7;
+    int grosor = 2;        // grosor del borde
+    int color_sup = 8;     // color para borde superior/izquierdo
+    int color_inf = 7;     // color para borde inferior/derecho
 
-    int x, y;
-
-
-    //  CENTRO DEL BLOQUE
-    for (y = grosor; y < tam - grosor; y++)
-    {
-        for (x = grosor; x < tam - grosor; x++)
-        {
+    // Centro del bloque (relleno)
+    for (int y = grosor; y < tam - grosor; y++) {
+        for (int x = grosor; x < tam - grosor; x++) {
             gbt_dibujar_pixel(xPantalla + x, yPantalla + y, color);
         }
     }
 
-    //BORDE SUPERIOR
-    for (y = 0; y < grosor; y++)
-    {
-        for (x = 0; x < tam; x++)
-        {
+    // Borde superior
+    for (int y = 0; y < grosor; y++) {
+        for (int x = 0; x < tam; x++) {
             gbt_dibujar_pixel(xPantalla + x, yPantalla + y, color_sup);
         }
     }
 
-    // BORDE IZQUIERDO
-    for (x = 0; x < grosor; x++)
-    {
-        for (y = 0; y < tam; y++)
-        {
+    // Borde izquierdo
+    for (int x = 0; x < grosor; x++) {
+        for (int y = 0; y < tam; y++) {
             gbt_dibujar_pixel(xPantalla + x, yPantalla + y, color_sup);
         }
     }
 
-
-    //BORDE INFERIOR
-    for (y = 0; y < grosor; y++)
-    {
-        for (x = 0; x < tam; x++)
-        {
+    // Borde inferior
+    for (int y = 0; y < grosor; y++) {
+        for (int x = 0; x < tam; x++) {
             gbt_dibujar_pixel(xPantalla + x, yPantalla + tam - 1 - y, color_inf);
         }
     }
 
-    //  BORDE DERECHO (OSCURO)
-    for (x = 0; x < grosor; x++)
-    {
-        for (y = 0; y < tam; y++)
-        {
+    // Borde derecho
+    for (int x = 0; x < grosor; x++) {
+        for (int y = 0; y < tam; y++) {
             gbt_dibujar_pixel(xPantalla + tam - 1 - x, yPantalla + y, color_inf);
         }
     }
-
-    // ESQUINAS
-
-    // arriba izquierda
-    gbt_dibujar_pixel(xPantalla, yPantalla, color_sup);
-
-    // arriba derecha
-    gbt_dibujar_pixel(xPantalla + tam - 1, yPantalla, color_sup);
-
-    // abajo izquierda
-    gbt_dibujar_pixel(xPantalla, yPantalla + tam - 1, color_inf);
-
-    // abajo derecha
-    gbt_dibujar_pixel(xPantalla + tam - 1, yPantalla + tam - 1, color_inf);
 }
 
 
@@ -82,29 +54,27 @@ void dibujarBloque(int xPantalla, int yPantalla, int tam, int color)
 
 
 
-// Dibuja el tablero completo
+// Dibuja todo el tablero con las piezas ya fijadas
 void dibujarTablero(int filas, int columnas, int tablero[filas][columnas], int tamBloque)
 {
-    for (int i = 0; i < filas; i++)
-    {
-        for (int j = 0; j < columnas; j++)
-        {
-            int valor = tablero[i][j];
+    for (int fila = 0; fila < filas; fila++) {
+        for (int col = 0; col < columnas; col++) {
+            int valor = tablero[fila][col];
 
-            if (valor != VACIO)
-            {
-                dibujarBloque(TABLERO_X + j * tamBloque,TABLERO_Y + i * tamBloque,tamBloque,valor);
-
-
+            // Si la celda no está vacía → dibujar bloque
+            if (valor != VACIO) {
+                dibujarBloque(TABLERO_X + col * tamBloque,TABLERO_Y + fila * tamBloque,tamBloque,valor);
             }
         }
     }
 }
 
 
-void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,int colorSuperior, int colorInferior, int colorIzquierdo, int colorDerecho) {
 
-
+// Dibuja un marco alrededor del tablero
+void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,
+                  int colorSuperior, int colorInferior, int colorIzquierdo, int colorDerecho)
+{
     int ancho = columnas * tamBloque;
     int alto  = filas * tamBloque;
 
@@ -143,6 +113,7 @@ void dibujarMarco(int filas, int columnas, int tamBloque, int grosor,int colorSu
     }
 }
 
+
 // Dibuja una pieza desde matriz gen�rica
 void dibujarMatriz(int filas, int cols, int pieza[filas][cols],
                    int posCeldaX, int posCeldaY, int tamBloque, int color)
@@ -164,43 +135,8 @@ void dibujarPiezaStruct(Pieza *p, int tamBloque) {
     dibujarMatriz(3, 3, p->matriz, p->posX, p->posY, tamBloque, p->color);
 }
 
-void dibujarPanel(int x, int y, int ancho, int alto, int color)
-{
-    // superior
-    for (int i = 0; i < ancho; i++)
-    {
-        gbt_dibujar_pixel(x + i, y, color);
-    }
 
-    // inferior
-    for (int i = 0; i < ancho; i++)
-    {
-        gbt_dibujar_pixel(x + i, y + alto, color);
-    }
-
-    // izquierda
-    for (int i = 0; i < alto; i++)
-    {
-        gbt_dibujar_pixel(x, y + i, color);
-    }
-
-    // derecha
-    for (int i = 0; i < alto; i++)
-    {
-        gbt_dibujar_pixel(x + ancho, y + i, color);
-    }
-}
-void dibujarMarcoPanel(
-    int x,
-    int y,
-    int ancho,
-    int alto,
-    int grosor,
-    int colorSuperior,
-    int colorInferior,
-    int colorIzquierdo,
-    int colorDerecho
-)
+void dibujarMarcoPanel(int x,int y,int ancho,int alto,int grosor,int colorSuperior,int colorInferior,int colorIzquierdo,int colorDerecho)
 {
     // superior
     for (int py = 0; py < grosor; py++)
@@ -239,37 +175,21 @@ void dibujarMarcoPanel(
     }
 }
 
+// Muestra la pantalla inicial con el título "TETRIS AURORA"
 void pantallaPresentacion()
 {
-    gbt_borrar_backbuffer(0);
+    gbt_borrar_backbuffer(0); // limpiar pantalla
 
-    // Texto "TETRIS AURORA" más grande y centrado
-    int escala = 7;
-    int anchoTitulo = strlen("TETRIS AURORA") * 6 * escala;
-    int xBase = ANCHO_VENTANA/2 - anchoTitulo/2;
-    int yBase = ALTO_VENTANA/2 - 60;
+    int escala = 7; // tamaño de las letras
+    int yBase = ALTO_VENTANA/2 - 60; // posición vertical
 
-    // "TETRIS"
-    dibujarTexto("T", xBase, yBase, escala, 12); // rojo
-    dibujarTexto("E", xBase + 6*escala, yBase, escala, 11); // cyan
-    dibujarTexto("T", xBase + 12*escala, yBase, escala, 14); // amarillo
-    dibujarTexto("R", xBase + 18*escala, yBase, escala, 10); // verde
-    dibujarTexto("I", xBase + 24*escala, yBase, escala, 13); // magenta
-    dibujarTexto("S", xBase + 30*escala, yBase, escala, 9);  // azul
+    // Dibujar título completo centrado y multicolor
+    dibujarTexto("TETRIS AURORA", 0, yBase, escala, 12, 1, 1);
 
-    // "AURORA"
-    dibujarTexto("A", xBase + 38*escala, yBase, escala, 11);
-    dibujarTexto("U", xBase + 44*escala, yBase, escala, 14); // amarillo
-    dibujarTexto("R", xBase + 50*escala, yBase, escala, 12); // rojo
-    dibujarTexto("O", xBase + 56*escala, yBase, escala, 9); // cyan
-    dibujarTexto("R", xBase + 62*escala, yBase, escala, 10); // verde
-    dibujarTexto("A", xBase + 68*escala, yBase, escala, 13); // magenta
+    gbt_volcar_backbuffer(); // mostrar en pantalla
 
-
-    gbt_volcar_backbuffer();
-
-    while (!gbt_tecla_presionada(GBTK_ENTER))
-    {
+    // Esperar hasta que el jugador presione ENTER
+    while (!gbt_tecla_presionada(GBTK_ENTER)) {
         gbt_procesar_entrada();
         gbt_esperar(16);
     }
@@ -277,84 +197,64 @@ void pantallaPresentacion()
 
 
 
+
+// Menú inicial con opciones centradas y multicolor solo en la seleccionada
 int menuInicial()
 {
-    int opcion = 0; // 0=Jugar, 1=Config, 2=Stats, 3=Salir
+    int opcion = 0; // opción seleccionada
 
-    while (1)
-    {
+    while (1) {
         gbt_borrar_backbuffer(0);
 
-        // Título multicolor centrado
-        int escalaTitulo = 6;
-        int anchoTitulo = strlen("TETRIS") * 7 * escalaTitulo;
-        int xTitulo = ANCHO_VENTANA/2 - anchoTitulo/2;
-        int yTitulo = 80;
+        // Título centrado y multicolor
+        dibujarTexto("TETRIS", 0, 80, 6, 12, 1, 1);
 
-        char* titulo = "TETRIS";
-        for (int i = 0; titulo[i] != '\0'; i++) {
-            char letra[2] = { titulo[i], '\0' };
-            int color = 9 + (i % 6); // alterna colores vivos
-            dibujarTexto(letra, xTitulo + i*7*escalaTitulo, yTitulo, escalaTitulo, color);
-        }
-
-        // Opciones multicolor centradas
+        // Opciones del menú
         int escalaOpc = 4;
-        int yBase = 200;
         int salto = 60;
+        int yBase = 200;
 
         // JUGAR
-        char* jugar = "JUGAR";
-        int anchoJugar = strlen(jugar) * 7 * escalaOpc;
-        int xJugar = ANCHO_VENTANA/2 - anchoJugar/2;
-        for (int i = 0; jugar[i] != '\0'; i++) {
-            char letra[2] = { jugar[i], '\0' };
-            int color = (opcion==0) ? (9 + (i % 6)) : 7;
-            dibujarTexto(letra, xJugar + i*7*escalaOpc, yBase, escalaOpc, color);
-        }
+        if (opcion == 0)
+            dibujarTexto("JUGAR", 0, yBase, escalaOpc, 7, 1, 1);   // multicolor
+        else
+            dibujarTexto("JUGAR", 0, yBase, escalaOpc, 7, 1, 0);   // gris fijo
 
         // CONFIGURACION
-        yBase += salto;
-        char* config = "CONFIGURACION";
-        int anchoConfig = strlen(config) * 7 * escalaOpc;
-        int xConfig = ANCHO_VENTANA/2 - anchoConfig/2;
-        for (int i = 0; config[i] != '\0'; i++) {
-            char letra[2] = { config[i], '\0' };
-            int color = (opcion==1) ? (9 + (i % 6)) : 7;
-            dibujarTexto(letra, xConfig + i*7*escalaOpc, yBase, escalaOpc, color);
-        }
+        if (opcion == 1)
+            dibujarTexto("CONFIGURACION", 0, yBase+salto, escalaOpc, 7, 1, 1);
+        else
+            dibujarTexto("CONFIGURACION", 0, yBase+salto, escalaOpc, 7, 1, 0);
 
         // ESTADISTICAS
-        yBase += salto;
-        char* stats = "ESTADISTICAS";
-        int anchoStats = strlen(stats) * 7 * escalaOpc;
-        int xStats = ANCHO_VENTANA/2 - anchoStats/2;
-        for (int i = 0; stats[i] != '\0'; i++) {
-            char letra[2] = { stats[i], '\0' };
-            int color = (opcion==2) ? (9 + (i % 6)) : 7;
-            dibujarTexto(letra, xStats + i*7*escalaOpc, yBase, escalaOpc, color);
-        }
+        if (opcion == 2)
+            dibujarTexto("ESTADISTICAS", 0, yBase+2*salto, escalaOpc, 7, 1, 1);
+        else
+            dibujarTexto("ESTADISTICAS", 0, yBase+2*salto, escalaOpc, 7, 1, 0);
 
         // SALIR
-        yBase += salto;
-        char* salir = "SALIR";
-        int anchoSalir = strlen(salir) * 7 * escalaOpc;
-        int xSalir = ANCHO_VENTANA/2 - anchoSalir/2;
-        for (int i = 0; salir[i] != '\0'; i++) {
-            char letra[2] = { salir[i], '\0' };
-            int color = (opcion==3) ? (9 + (i % 6)) : 7;
-            dibujarTexto(letra, xSalir + i*7*escalaOpc, yBase, escalaOpc, color);
-        }
+        if (opcion == 3)
+            dibujarTexto("SALIR", 0, yBase+3*salto, escalaOpc, 7, 1, 1);
+        else
+            dibujarTexto("SALIR", 0, yBase+3*salto, escalaOpc, 7, 1, 0);
 
         gbt_volcar_backbuffer();
         gbt_procesar_entrada();
 
         // Navegación con flechas
-        if (gbt_tecla_presionada(GBTK_ARRIBA)) opcion = (opcion+3)%4;
-        if (gbt_tecla_presionada(GBTK_ABAJO))  opcion = (opcion+1)%4;
+        if (gbt_tecla_presionada(GBTK_ARRIBA)) {
+            opcion--;
+            if (opcion < 0) opcion = 3;
+        }
+        if (gbt_tecla_presionada(GBTK_ABAJO)) {
+            opcion++;
+            if (opcion > 3) opcion = 0;
+        }
 
-        // Selección con ENTER
-        if (gbt_tecla_presionada(GBTK_ENTER)) return opcion;
+        // Confirmar con ENTER
+        if (gbt_tecla_presionada(GBTK_ENTER)) {
+            return opcion;
+        }
 
         gbt_esperar(16);
     }
@@ -364,16 +264,17 @@ int menuInicial()
 
 
 
+// Permite al jugador escribir su nombre con letras A–Z, espacio y retroceso
+// El mensaje fijo y el nombre se muestran centrados y multicolor letra por letra
 void ingresarNombre(char* nombre, int maxLen)
 {
     int pos = 0;
-    nombre[0] = '\0';
+    nombre[0] = '\0'; // empezar vacío
 
-    while (1)
-    {
+    while (1) {
         gbt_procesar_entrada();
 
-        // Letras A–Z
+        // Letras A–Z (cada una con un if básico)
         if (gbt_tecla_presionada(GBTK_a) && pos < maxLen-1) { nombre[pos++] = 'A'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_b) && pos < maxLen-1) { nombre[pos++] = 'B'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_c) && pos < maxLen-1) { nombre[pos++] = 'C'; nombre[pos] = '\0'; }
@@ -407,46 +308,27 @@ void ingresarNombre(char* nombre, int maxLen)
             nombre[pos] = '\0';
         }
 
-        // Backspace
+        // Retroceso
         if (gbt_tecla_presionada(GBTK_RETROCESO) && pos > 0) {
             pos--;
             nombre[pos] = '\0';
         }
 
         // Confirmar con ENTER
-        if (gbt_tecla_presionada(GBTK_ENTER)) break;
+        if (gbt_tecla_presionada(GBTK_ENTER)) {
+            break;
+        }
 
-        // Dibujar pantalla de ingreso
+       // Dibujar pantalla
         gbt_borrar_backbuffer(0);
 
-        // Texto fijo centrado y multicolor
-        char* titulo = "INGRESE SU NOMBRE";
-        int escalaTitulo = 4;
-        int anchoTitulo = strlen(titulo) * 7 * escalaTitulo;
-        int xTitulo = ANCHO_VENTANA/2 - anchoTitulo/2;
-        int yTitulo = ALTO_VENTANA/2 - 60;
+        // Texto fijo "INGRESE SU NOMBRE" centrado y multicolor
+        dibujarTexto("INGRESE SU NOMBRE", 0, ALTO_VENTANA/2 - 60, 4, 12, 1, 1);
 
-        for (int i = 0; titulo[i] != '\0'; i++) {
-            char letra[2] = { titulo[i], '\0' };
-            int color = 9 + (i % 6); // alterna colores retro
-            dibujarTexto(letra, xTitulo + i*7*escalaTitulo, yTitulo, escalaTitulo, color);
-        }
-
-        // Nombre centrado dinámicamente y multicolor
-        int escalaNombre = 4;
-        int anchoNombre = strlen(nombre) * 7 * escalaNombre;
-        int xNombre = ANCHO_VENTANA/2 - anchoNombre/2;
-        int yNombre = ALTO_VENTANA/2;
-
-        for (int i = 0; nombre[i] != '\0'; i++) {
-            char letra[2] = { nombre[i], '\0' };
-            int color = 9 + (i % 6); // alterna colores retro
-            dibujarTexto(letra, xNombre + i*7*escalaNombre, yNombre, escalaNombre, color);
-        }
+        // Mostrar el nombre escrito, centrado y multicolor
+        dibujarTexto(nombre, 0, ALTO_VENTANA/2, 4, 11, 1, 1);
 
         gbt_volcar_backbuffer();
         gbt_esperar(16);
     }
 }
-
-

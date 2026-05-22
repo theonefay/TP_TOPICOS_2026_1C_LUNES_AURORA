@@ -2,7 +2,8 @@
 #define FUENTELETRAS_H_INCLUDED
 void dibujarLetra(int x, int y, int indice, int escala, int color);
 int letraIndice(char c);
-void dibujarTexto(const char* texto, int x, int y, int escala, int color);
+void dibujarTexto(const char* texto, int x, int y, int escala, int color, int centrado, int multicolor);
+
 
 
 #endif // FUENTELETRAS_H_INCLUDED

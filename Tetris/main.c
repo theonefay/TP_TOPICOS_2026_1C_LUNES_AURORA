@@ -149,30 +149,17 @@ int main()
             anchoPanel = anchoNombre + 40;
         }
 
-        dibujarPanel(PANEL_X, PANEL_Y, anchoPanel, PANEL_ALTO, 0);
-        dibujarMarcoPanel(
-            PANEL_X - GROSOR_MARCO,
-            PANEL_Y - GROSOR_MARCO,
-            anchoPanel + GROSOR_MARCO * 2,
-            PANEL_ALTO + GROSOR_MARCO * 2,
-            GROSOR_MARCO,
-            9, 12, 14, 11
-        );
+        dibujarMarcoPanel(PANEL_X - GROSOR_MARCO,PANEL_Y - GROSOR_MARCO,anchoPanel + GROSOR_MARCO * 2,PANEL_ALTO + GROSOR_MARCO * 2,GROSOR_MARCO,9, 12, 14, 11);
 
-        // Score arriba del nombre
-        char bufferScore[16];
-        sprintf(bufferScore, "%d", score);
-        dibujarTexto(bufferScore, PANEL_X + 20, PANEL_Y + 60, 5, 14); // blanco
+            // Score arriba del nombre
+            char textoScore[16];
+            sprintf(textoScore, "%d", score);
+            dibujarTexto(textoScore, PANEL_X + 20, PANEL_Y + 60, 5, 14, 0, 0);
 
-        // Nombre multicolor debajo del score
-        int escalaNombre = 3;
-        int xNombre = PANEL_X + 20;
-        int yNombre = PANEL_Y + 100;
-        for (int i = 0; nombreJugador[i] != '\0'; i++) {
-            char letra[2] = { nombreJugador[i], '\0' };
-            int color = 9 + (i % 6); // alterna colores retro
-            dibujarTexto(letra, xNombre + i*7*escalaNombre, yNombre, escalaNombre, color);
-        }
+
+            // Nombre multicolor debajo del score
+            dibujarTexto(nombreJugador, PANEL_X + 20, PANEL_Y + 100, 3, 11, 0, 1);
+
 
         // Próxima pieza
         dibujarMatriz(
@@ -194,18 +181,7 @@ int main()
 
    // Pantalla de Game Over centrada y multicolor
     gbt_borrar_backbuffer(0);
-    char* gameOverText = "GAME OVER";
-    int escalaGO = 4;
-    int anchoGO = strlen(gameOverText) * 7 * escalaGO;
-    int xGO = ANCHO_VENTANA/2 - anchoGO/2;
-    int yGO = ALTO_VENTANA/2 - 40;
-
-    for (int i=0; gameOverText[i]!='\0'; i++) {
-        char letra[2] = { gameOverText[i], '\0' };
-        int color = 9 + (i % 6);
-        dibujarTexto(letra, xGO + i*7*escalaGO, yGO, escalaGO, color);
-    }
-
+    dibujarTexto("GAME OVER", 0, ALTO_VENTANA/2 - 40, 4, 12, 1, 1);
     gbt_volcar_backbuffer();
     gbt_esperar(3000);
 
