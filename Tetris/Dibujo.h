@@ -32,13 +32,7 @@ void dibujarMarcoPanel(
     int colorIzquierdo,
     int colorDerecho
 );
-
-#endif // DIBUJOS_H
-
-
-
-/*      ┌──────── TABLERO ────────┐ ┌── PANEL ──┐
-        │                         │ │ SCORE     │
-        │                         │ │ NEXT      │
-        │                         │ │ LEVEL     │
-        └─────────────────────────┘ └───────────┘*/
+void pantallaPresentacion();
+int menuInicial();
+void ingresarNombre(char* nombre, int maxLen);
+#endif

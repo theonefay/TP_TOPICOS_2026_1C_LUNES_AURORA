@@ -94,7 +94,7 @@ void nuevaPieza(Pieza *p) {
 
     p->posX = COLUMNAS / 2 - 1;// la pieza aparece en el centro
     p->posY = 0;// la pieza aparece arriba de todo del tablero
-    p->color = 1 + rand() % 7;// se le asigna un color random
+    p->color = 9 + rand() % 6;// se le asigna un color random
 }
 
 
