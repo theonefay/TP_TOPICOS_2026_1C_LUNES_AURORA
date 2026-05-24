@@ -21,25 +21,45 @@ Panel lateral con puntaje, nombre del jugador, próxima pieza y velocidad actual
 Bonificación de puntos: a mayor velocidad, mayor puntaje obtenido.
 
 ##Cómo utilizar
-Instrucciones para el armado del entorno:
-En el repositorio podrá encontrar el release correspondiente a cada versión de la biblioteca, con todos los archivos necesarios:
+## Cómo utilizar
+
+### 1. Preparación inicial
+- Descargue el archivo `TP_TOPICOS_2026_1C_LUNES_{GRUPO}.zip`.
+- Descomprima el `.zip` utilizando **7-Zip** con la opción **Extract Here**.
+- El `.zip` contiene únicamente:
+  - Archivos `.c` y `.h` desarrollados por el grupo.
+  - Carpeta `/doc` con documentación.
+  - Carpeta `/img` con imágenes.
+
+⚠️ No se incluyen binarios, configuraciones del IDE ni archivos temporales.
+
+### 2. Ubicación de carpetas
+- La carpeta **Aurora** (código del grupo) debe quedar junto a la carpeta de la **Gran Biblioteca de Tópicos (GBT)**.  
 
 
-Haga clic derecho sobre el nombre del proyecto, pulse Build options, estando sobre el Build target Debug haga click en la solapa Linker settings. En Other linker options agregue -lgbt.
+### 3. Crear proyecto en Code::Blocks
+- Abrir Code::Blocks.
+- Crear un nuevo proyecto **Console application** en lenguaje C.
+- Copiar el contenido del `.zip` en el directorio del proyecto.
+- Asegurarse de que las carpetas `Aurora/` y `GBT/` estén presentes en la raíz del proyecto.
+
+### 4. Configuración del Linker
+- Clic derecho sobre el proyecto → **Build options**.
+- En **Build target Debug**, ir a **Linker settings**.
+- En **Other linker options**, agregar: -lgbt
 
 
-Acceda al tab Search Directories:
 
-En el tab Compiler agregue pulsando el botón add la ruta a la carpeta include/ de la biblioteca.
-En el tab Linker agregue pulsando el botón add la ruta a la carpeta lib/ de la biblioteca.
+### 5. Configuración de directorios
+- En **Search Directories**:
+- **Compiler** → agregar la ruta a `GBT/include/`.
+- **Linker** → agregar la ruta a `GBT/lib/`.
+- Guardar los cambios.
 
-Pulse OK para guardar los cambios.
-
-
-Para utilizar la biblioteca en los archivos de su proyecto agregue #include "GBT/gbt.h" en los archivos .c o .h que lo requieran.
-
-
-Una vez realizados todos los pasos anteriores ya puede compilar su programa.
+### 6. Compilación y ejecución
+- Compilar el programa normalmente.
+- Para ejecutar, copiar el archivo `gbt.dll` en la misma ruta donde se genera el `.exe`.
 
 
-Para poder ejecutar el programa debe copiar el archivo gbt.dll en la ruta donde se generó el resultado de la compilación (la ubicación del archivo .exe)
+## Repositorio
+URL: https://github.com/theonefay/TP_TOPICOS_2026_1C_LUNES_AURORA
