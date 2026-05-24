@@ -1,6 +1,7 @@
 # Archivos de Code::Blocks
 *.layout
 *.depend
+*.cbp
 
 # Archivos de compilación
 *.o
@@ -11,11 +12,13 @@
 *.log
 *.tmp
 
-# Directorios de binarios
-Tetris/bin/
+# Directorios de binarios y compilación
+/bin/
 /obj/
 /build/
-.git
 
+# Archivos y carpetas que no deben subirse
+.git/
+Tetris/bin/
 Tetris/config.dat
 Tetris/estadisticas.dat

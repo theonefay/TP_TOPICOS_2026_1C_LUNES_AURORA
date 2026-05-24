@@ -1,3 +1,22 @@
+//-------------------------------------------------------------------------------------------------------------------------------
+/*
+Apellido: Caire, Fabrizio Esteban
+DNI: 43863061
+Usuario: theonefay
+Entrega: Sí
+
+Apellido: Blanco, Rodrigo
+DNI: 44109328
+Usuario: BlancoRodrigo
+Entrega: No
+
+Apellido: ROCHA MALDONADO, WANDA
+DNI: 39373348
+Usuario: WandaRMaldo
+Entrega: No
+*/
+//------------------------------------------------------------------------------------------------------------------------------
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +26,7 @@
 #include "Constantes.h"
 #include "FuenteLetras.h"
 #include "Configuraciones.h"
-#include "Logica.h"   // acá está la función jugar()
+#include "Logica.h"
 
 //variables globales
 int score = 0;

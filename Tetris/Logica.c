@@ -97,10 +97,10 @@ void jugar() {
                     if (piezasCaidas % 10 == 0) velocidadCaida *= 0.97;
 
                     gbt_temporizador_destruir(temporizador_gravedad);
-gbt_temporizador_destruir(temporizador_fijacion);
+                    gbt_temporizador_destruir(temporizador_fijacion);
 
-temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
-temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
+                    temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
+                    temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
 
 
                     if (GameOver(&piezaActual, tablero)) gameOver = 1;
@@ -123,10 +123,10 @@ temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
                         piezasCaidas++;
                         if (piezasCaidas % 10 == 0) velocidadCaida *= 0.97;
                         gbt_temporizador_destruir(temporizador_gravedad);
-gbt_temporizador_destruir(temporizador_fijacion);
+                        gbt_temporizador_destruir(temporizador_fijacion);
 
-temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
-temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
+                        temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
+                        temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
 
 
                         if (GameOver(&piezaActual, tablero)) gameOver = 1;
@@ -157,10 +157,10 @@ temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
                     piezasCaidas++;
                     if (piezasCaidas % 10 == 0) velocidadCaida *= 0.97;
                     gbt_temporizador_destruir(temporizador_gravedad);
-gbt_temporizador_destruir(temporizador_fijacion);
+                    gbt_temporizador_destruir(temporizador_fijacion);
 
-temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
-temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
+                    temporizador_gravedad = gbt_temporizador_crear(velocidadCaida / 1000.0);
+                    temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
 
 
                     if (GameOver(&piezaActual, tablero)) gameOver = 1;
