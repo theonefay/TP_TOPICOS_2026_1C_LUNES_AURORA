@@ -61,6 +61,6 @@ int limpiarLineas(int tablero[FILAS][COLUMNAS]);
 void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]);
 int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS]);
 int puedeMoverHorizontal(Pieza *p, int tablero[FILAS][COLUMNAS], int direccion);
-int calcularPuntaje(int lineas);
+void rotarPiezaContraria(Pieza *p, int tablero[FILAS][COLUMNAS]);
 
 #endif // PIEZAS_H_INCLUDED

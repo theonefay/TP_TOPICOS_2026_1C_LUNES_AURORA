@@ -40,11 +40,23 @@
 			<Add library="GBT_v2026.1C.01/lib/libgbt.a" />
 			<Add directory="GBT_v2026.1C.01/lib" />
 		</Linker>
+		<Unit filename="Configuraciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Configuraciones.h" />
 		<Unit filename="Constantes.h" />
 		<Unit filename="Dibujo.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Dibujo.h" />
+		<Unit filename="FuenteLetras.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FuenteLetras.h" />
+		<Unit filename="Logica.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Logica.h" />
 		<Unit filename="Piezas.c">
 			<Option compilerVar="CC" />
 		</Unit>

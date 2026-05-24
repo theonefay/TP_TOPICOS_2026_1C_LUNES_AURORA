@@ -181,10 +181,11 @@ void pantallaPresentacion()
     gbt_borrar_backbuffer(0); // limpiar pantalla
 
     int escala = 7; // tamaño de las letras
-    int yBase = ALTO_VENTANA/2 - 60; // posición vertical
+    int yBase = altoVentana/2 - 60; // posición vertical
 
     // Dibujar título completo centrado y multicolor
-    dibujarTexto("TETRIS AURORA", 0, yBase, escala, 12, 1, 1);
+    dibujarTexto("TETRIS AURORA", anchoVentana/2, yBase, escala, 12, 1, 1);
+
 
     gbt_volcar_backbuffer(); // mostrar en pantalla
 
@@ -198,63 +199,51 @@ void pantallaPresentacion()
 
 
 
-// Menú inicial con opciones centradas y multicolor solo en la seleccionada
 int menuInicial()
 {
-    int opcion = 0; // opción seleccionada
+    int opcion = 0;
 
     while (1) {
         gbt_borrar_backbuffer(0);
 
-        // Título centrado y multicolor
-        dibujarTexto("TETRIS", 0, 80, 6, 12, 1, 1);
+        // Título centrado y multicolor (aprox. 1/4 de la altura)
+        dibujarTexto("TETRIS", anchoVentana/2, altoVentana/4, 6, 12, 1, 1);
 
         // Opciones del menú
         int escalaOpc = 4;
         int salto = 60;
-        int yBase = 200;
+        int yBase = altoVentana/2; // centrado dinámico
 
-        // JUGAR
         if (opcion == 0)
-            dibujarTexto("JUGAR", 0, yBase, escalaOpc, 7, 1, 1);   // multicolor
+            dibujarTexto("JUGAR", anchoVentana/2, yBase, escalaOpc, 7, 1, 1);
         else
-            dibujarTexto("JUGAR", 0, yBase, escalaOpc, 7, 1, 0);   // gris fijo
+            dibujarTexto("JUGAR", anchoVentana/2, yBase, escalaOpc, 7, 1, 0);
 
-        // CONFIGURACION
         if (opcion == 1)
-            dibujarTexto("CONFIGURACION", 0, yBase+salto, escalaOpc, 7, 1, 1);
+            dibujarTexto("CONFIGURACION", anchoVentana/2, yBase+salto, escalaOpc, 7, 1, 1);
         else
-            dibujarTexto("CONFIGURACION", 0, yBase+salto, escalaOpc, 7, 1, 0);
+            dibujarTexto("CONFIGURACION", anchoVentana/2, yBase+salto, escalaOpc, 7, 1, 0);
 
-        // ESTADISTICAS
         if (opcion == 2)
-            dibujarTexto("ESTADISTICAS", 0, yBase+2*salto, escalaOpc, 7, 1, 1);
+            dibujarTexto("ESTADISTICAS", anchoVentana/2, yBase+2*salto, escalaOpc, 7, 1, 1);
         else
-            dibujarTexto("ESTADISTICAS", 0, yBase+2*salto, escalaOpc, 7, 1, 0);
+            dibujarTexto("ESTADISTICAS", anchoVentana/2, yBase+2*salto, escalaOpc, 7, 1, 0);
 
-        // SALIR
         if (opcion == 3)
-            dibujarTexto("SALIR", 0, yBase+3*salto, escalaOpc, 7, 1, 1);
+            dibujarTexto("SALIR", anchoVentana/2, yBase+3*salto, escalaOpc, 7, 1, 1);
         else
-            dibujarTexto("SALIR", 0, yBase+3*salto, escalaOpc, 7, 1, 0);
+            dibujarTexto("SALIR", anchoVentana/2, yBase+3*salto, escalaOpc, 7, 1, 0);
 
         gbt_volcar_backbuffer();
         gbt_procesar_entrada();
 
-        // Navegación con flechas
         if (gbt_tecla_presionada(GBTK_ARRIBA)) {
-            opcion--;
-            if (opcion < 0) opcion = 3;
+            opcion--; if (opcion < 0) opcion = 3;
         }
         if (gbt_tecla_presionada(GBTK_ABAJO)) {
-            opcion++;
-            if (opcion > 3) opcion = 0;
+            opcion++; if (opcion > 3) opcion = 0;
         }
-
-        // Confirmar con ENTER
-        if (gbt_tecla_presionada(GBTK_ENTER)) {
-            return opcion;
-        }
+        if (gbt_tecla_presionada(GBTK_ENTER)) return opcion;
 
         gbt_esperar(16);
     }
@@ -264,8 +253,10 @@ int menuInicial()
 
 
 
+
+
+
 // Permite al jugador escribir su nombre con letras A–Z, espacio y retroceso
-// El mensaje fijo y el nombre se muestran centrados y multicolor letra por letra
 void ingresarNombre(char* nombre, int maxLen)
 {
     int pos = 0;
@@ -274,7 +265,7 @@ void ingresarNombre(char* nombre, int maxLen)
     while (1) {
         gbt_procesar_entrada();
 
-        // Letras A–Z (cada una con un if básico)
+        // Letras A–Z
         if (gbt_tecla_presionada(GBTK_a) && pos < maxLen-1) { nombre[pos++] = 'A'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_b) && pos < maxLen-1) { nombre[pos++] = 'B'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_c) && pos < maxLen-1) { nombre[pos++] = 'C'; nombre[pos] = '\0'; }
@@ -314,19 +305,17 @@ void ingresarNombre(char* nombre, int maxLen)
             nombre[pos] = '\0';
         }
 
-        // Confirmar con ENTER
+        //  ENTER
         if (gbt_tecla_presionada(GBTK_ENTER)) {
             break;
         }
 
-       // Dibujar pantalla
+        // Dibujar pantalla
         gbt_borrar_backbuffer(0);
 
-        // Texto fijo "INGRESE SU NOMBRE" centrado y multicolor
-        dibujarTexto("INGRESE SU NOMBRE", 0, ALTO_VENTANA/2 - 60, 4, 12, 1, 1);
+        dibujarTexto("INGRESE SU NOMBRE", anchoVentana/2, altoVentana/3, 4, 12, 1, 1);
+        dibujarTexto(nombre, anchoVentana/2, altoVentana/2, 4, 11, 1, 1);
 
-        // Mostrar el nombre escrito, centrado y multicolor
-        dibujarTexto(nombre, 0, ALTO_VENTANA/2, 4, 11, 1, 1);
 
         gbt_volcar_backbuffer();
         gbt_esperar(16);

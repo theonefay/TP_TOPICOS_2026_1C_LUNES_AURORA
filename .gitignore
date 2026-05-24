@@ -16,3 +16,6 @@ Tetris/bin/
 /obj/
 /build/
 .git
+
+Tetris/config.dat
+Tetris/estadisticas.dat
