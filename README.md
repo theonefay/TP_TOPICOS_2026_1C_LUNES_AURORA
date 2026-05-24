@@ -25,12 +25,6 @@ Instrucciones para el armado del entorno:
 En el repositorio podrá encontrar el release correspondiente a cada versión de la biblioteca, con todos los archivos necesarios:
 
 
-Descomprimir con 7-Zip utilizando la opción Extract Here.
-
-
-En Code::Blocks, crear un nuevo proyecto Console application para el lenguaje C con el título de su preferencia, en el directorio deseado. Copie el contenido del archivo .zip anteriormente mencionado en la ruta lib\GBT_v202*.*C.**\ dentro del directorio de su proyecto.
-
-
 Haga clic derecho sobre el nombre del proyecto, pulse Build options, estando sobre el Build target Debug haga click en la solapa Linker settings. En Other linker options agregue -lgbt.
 
 
