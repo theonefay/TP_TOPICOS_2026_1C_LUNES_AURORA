@@ -233,8 +233,9 @@ void dibujarTexto(const char* texto, int x, int y, int escala, int color, int ce
 
     // Centrado automático
     if (centrado == 1) {
-        x = ANCHO_VENTANA/2 - ancho/2;
-    }
+    x = anchoVentana/2 - ancho/2;
+}
+
 
     int offsetX = 0;
 

@@ -149,6 +149,34 @@ void rotarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
 }
 
 
+// Rota la pieza en sentido antihorario
+void rotarPiezaContraria(Pieza *p, int tablero[FILAS][COLUMNAS]) {
+    if (p->tipo == 'O') return; // El cuadrado no rota
+
+    int copia[3][3];
+    memcpy(copia, p->matriz, sizeof(copia)); // Guardar copia
+
+    // Transponer matriz
+    for (int i = 0; i < 3; i++) {
+        for (int j = i + 1; j < 3; j++) {
+            int aux = p->matriz[i][j];
+            p->matriz[i][j] = p->matriz[j][i];
+            p->matriz[j][i] = aux;
+        }
+    }
+
+    // Invertir filas (rotación antihoraria)
+    for (int j = 0; j < 3; j++) {
+        int aux = p->matriz[0][j];
+        p->matriz[0][j] = p->matriz[2][j];
+        p->matriz[2][j] = aux;
+    }
+
+    // Si no puede rotar, volver a la copia
+    if (!puedeRotar(p, tablero)) memcpy(p->matriz, copia, sizeof(copia));
+}
+
+
 // Copia la pieza al tablero (la fija en su lugar)
 void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
     for (int fila = 0; fila < 3; fila++) {
@@ -242,24 +270,5 @@ int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS]) {
         }
     }
     return 0; // sigue el juego
-}
-
-// Calcula el puntaje según la cantidad de líneas eliminadas
-int calcularPuntaje(int lineas)
-{
-    // Usamos un switch para asignar el puntaje
-    switch (lineas)
-    {
-        case 1:
-            return 100;   // 1 línea → 100 puntos
-        case 2:
-            return 300;   // 2 líneas → 300 puntos
-        case 3:
-            return 500;   // 3 líneas → 500 puntos
-        case 4:
-            return 800;   // 4 líneas (Tetris) → 800 puntos
-        default:
-            return 0;     // Si no se eliminó ninguna línea → 0 puntos
-    }
 }
 
