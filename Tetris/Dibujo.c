@@ -257,7 +257,6 @@ int menuInicial()
 
 
 // Permite al jugador escribir su nombre con letras A–Z, espacio y retroceso
-// El mensaje fijo y el nombre se muestran centrados y multicolor letra por letra
 void ingresarNombre(char* nombre, int maxLen)
 {
     int pos = 0;
@@ -266,7 +265,7 @@ void ingresarNombre(char* nombre, int maxLen)
     while (1) {
         gbt_procesar_entrada();
 
-        // Letras A–Z (cada una con un if básico)
+        // Letras A–Z
         if (gbt_tecla_presionada(GBTK_a) && pos < maxLen-1) { nombre[pos++] = 'A'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_b) && pos < maxLen-1) { nombre[pos++] = 'B'; nombre[pos] = '\0'; }
         if (gbt_tecla_presionada(GBTK_c) && pos < maxLen-1) { nombre[pos++] = 'C'; nombre[pos] = '\0'; }
@@ -306,7 +305,7 @@ void ingresarNombre(char* nombre, int maxLen)
             nombre[pos] = '\0';
         }
 
-        // Confirmar con ENTER
+        //  ENTER
         if (gbt_tecla_presionada(GBTK_ENTER)) {
             break;
         }
@@ -314,8 +313,8 @@ void ingresarNombre(char* nombre, int maxLen)
         // Dibujar pantalla
         gbt_borrar_backbuffer(0);
 
-dibujarTexto("INGRESE SU NOMBRE", anchoVentana/2, altoVentana/3, 4, 12, 1, 1);
-dibujarTexto(nombre, anchoVentana/2, altoVentana/2, 4, 11, 1, 1);
+        dibujarTexto("INGRESE SU NOMBRE", anchoVentana/2, altoVentana/3, 4, 12, 1, 1);
+        dibujarTexto(nombre, anchoVentana/2, altoVentana/2, 4, 11, 1, 1);
 
 
         gbt_volcar_backbuffer();

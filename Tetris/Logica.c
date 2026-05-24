@@ -200,35 +200,27 @@ temporizador_fijacion = gbt_temporizador_crear((velocidadCaida / 1000.0) * 0.5);
             dibujarTexto(nombreJugador, xNombre, PANEL_Y + 100, escalaNombre, 11, 0, 1);
 
             // Próxima pieza
-            dibujarMatriz(
-                3, 3,
-                piezaSiguiente.matriz,
-                (PANEL_X + 50 - TABLERO_X) / TAM_BLOQUE,
-                (PANEL_Y + 120 - TABLERO_Y + 2 * TAM_BLOQUE) / TAM_BLOQUE,
-                TAM_BLOQUE,
-                piezaSiguiente.color
-            );
+            dibujarMatriz(3, 3,piezaSiguiente.matriz,(PANEL_X + 50 - TABLERO_X) / TAM_BLOQUE,(PANEL_Y + 120 - TABLERO_Y + 2 * TAM_BLOQUE) / TAM_BLOQUE,TAM_BLOQUE,piezaSiguiente.color);
 
 
-// --- Velocidad de caída ---
-// --- Velocidad de caída al lado derecho del tablero ---
-char textoVel[32];
-sprintf(textoVel, "Vel: %d ms", (int)velocidadCaida);
+        //      --- Velocidad de caída ---
 
-int escalaVel = 3;
-int anchoVel = strlen(textoVel) * (6 * escalaVel);
+            char textoVel[32];
+            sprintf(textoVel, "Vel: %d ms", (int)velocidadCaida);
 
-// Posición: justo a la derecha del tablero
-int xVel = TABLERO_X + COLUMNAS * TAM_BLOQUE + 20; // 20 px de margen
-int yVel = TABLERO_Y + 40; // un poco debajo del borde superior
+            int escalaVel = 3;
 
-dibujarTexto(textoVel, xVel, yVel, escalaVel, 13, 0, 0);
+            // Posición
+            int xVel = TABLERO_X + COLUMNAS * TAM_BLOQUE + 20; // 20 px de margen
+            int yVel = TABLERO_Y + 40; // un poco debajo del borde superior
 
-// --- Tablero y pieza actual ---
-dibujarTablero(FILAS, COLUMNAS, tablero, TAM_BLOQUE);
-dibujarPiezaStruct(&piezaActual, TAM_BLOQUE);
+            dibujarTexto(textoVel, xVel, yVel, escalaVel, 13, 0, 0);
 
-gbt_volcar_backbuffer();
+            // --- Tablero y pieza actual ---
+            dibujarTablero(FILAS, COLUMNAS, tablero, TAM_BLOQUE);
+            dibujarPiezaStruct(&piezaActual, TAM_BLOQUE);
+
+            gbt_volcar_backbuffer();
 
 
             // Tablero y pieza actual
@@ -236,32 +228,30 @@ gbt_volcar_backbuffer();
             dibujarPiezaStruct(&piezaActual, TAM_BLOQUE);
 
             gbt_volcar_backbuffer();
-        } else {
+            } else {
             // --- Pausa ---
             gbt_borrar_backbuffer(0);
             dibujarTexto("PAUSA", 0, altoVentana/2 - 40, 4, 14, 1, 1);
             gbt_volcar_backbuffer();
-        }
+            }
 
-        gbt_esperar(16);
-    }
+            gbt_esperar(16);
+            }
 
-    // Pantalla de Game Over
-    gbt_borrar_backbuffer(0);
-    gbt_borrar_backbuffer(0);
+        // Pantalla de Game Over
+        gbt_borrar_backbuffer(0);
+        gbt_borrar_backbuffer(0);
+        int escalaGO = 6;
+        dibujarTexto("GAME OVER", 0, altoVentana/2 - (escalaGO * 8), escalaGO, 12, 1, 1);
 
-// Centrado vertical dinámico
-int escalaGO = 6;
-dibujarTexto("GAME OVER", 0, altoVentana/2 - (escalaGO * 8), escalaGO, 12, 1, 1);
+        gbt_volcar_backbuffer();
+        gbt_esperar(3000);
 
-gbt_volcar_backbuffer();
-gbt_esperar(3000);
+        gbt_volcar_backbuffer();
+        gbt_esperar(3000);
 
-    gbt_volcar_backbuffer();
-    gbt_esperar(3000);
-
-    // Guardar estadística del jugador actual
-    guardarEstadistica(nombreJugador, score);
+        // Guardar estadística del jugador actual
+        guardarEstadistica(nombreJugador, score);
 }
 
 int calcularPuntaje(int lineas, double velocidadCaida) {

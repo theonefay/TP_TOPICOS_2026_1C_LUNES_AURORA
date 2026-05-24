@@ -9,12 +9,13 @@
 #include "Configuraciones.h"
 #include "Logica.h"   // acá está la función jugar()
 
+//variables globales
 int score = 0;
 char nombreJugador[MAX_NOMBRE+1];
 Config cfg;
 int juegoPausado = 0;
 int tablero[FILAS][COLUMNAS];
-int altoVentana; // variable global dinámica
+int altoVentana;
 int anchoVentana;
 int TAM_BLOQUE;
 int TABLERO_X;
@@ -22,9 +23,7 @@ int TABLERO_Y;
 int PANEL_X;
 int PANEL_Y ;
 
-
-
-
+//definicion de paleta de colores
 tGBT_ColorRGB paletaCGA[16] = {
     {0x00, 0x00, 0x00}, {0x00, 0x00, 0xAA}, {0x00, 0xAA, 0x00}, {0x00, 0xAA, 0xAA},
     {0xAA, 0x00, 0x00}, {0xAA, 0x00, 0xAA}, {0xAA, 0x55, 0x00}, {0xAA, 0xAA, 0xAA},
@@ -55,22 +54,22 @@ int main(int argc, char* argv[]) {
     altoVentana  = 480;
     gbt_crear_ventana("Tetris", anchoVentana * escala, altoVentana * escala, 1);
 
-   // Paleta según modo elegido
-if (resolucion == 0) {
+    // Paleta de colores según modo elegido
+    if (resolucion == 0) {
     // Simular CGA dentro de VGA
     gbt_aplicar_paleta(paletaCGA, 16, GBT_FORMATO_888);
-    TAM_BLOQUE = 22; // bloques más grandes para simular baja resolución
-} else {
-    // VGA normal
+    TAM_BLOQUE = 22;
+    } else {
+    // VGA
     gbt_aplicar_paleta(paletaCGA, 16, GBT_FORMATO_888);
     TAM_BLOQUE = 16;
 }
 
-// Calcular posición dinámica del tablero
-TABLERO_X = (anchoVentana - COLUMNAS * TAM_BLOQUE) / 2;
-TABLERO_Y = (altoVentana - FILAS * TAM_BLOQUE) / 2;
-PANEL_X = 20;              // fijo
-PANEL_Y = TABLERO_Y;       // dinámico, depende del tablero
+    // Calcular posición dinámica del tablero
+    TABLERO_X = (anchoVentana - COLUMNAS * TAM_BLOQUE) / 2;
+    TABLERO_Y = (altoVentana - FILAS * TAM_BLOQUE) / 2;
+    PANEL_X = 20;              // fijo
+    PANEL_Y = TABLERO_Y;       // dinámico, depende del tablero
 
 
     pantallaPresentacion();

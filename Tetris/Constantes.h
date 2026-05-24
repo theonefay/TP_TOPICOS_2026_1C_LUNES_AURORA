@@ -9,7 +9,7 @@ extern int altoVentana;
 #define FILAS 20
 #define COLUMNAS 10
 
-// Layout gráfico
+// gráfico
 extern int TAM_BLOQUE;
 
 extern int TABLERO_X;

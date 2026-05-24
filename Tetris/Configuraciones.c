@@ -110,10 +110,10 @@ void mostrarEstadisticas() {
     while (!salir) {
         gbt_borrar_backbuffer(0);
 
-        // Título centrado y multicolor
+
         dibujarTexto("ESTADISTICAS", anchoVentana/2, 40, 5, 14, 1, 1);
 
-        // Mostrar hasta 5 jugadores en amarillo, centrados
+        // Mostrar hasta 5 jugadores
         for (int i = 0; i < count && i < 5; i++) {
             char linea[64];
             sprintf(linea, "%s - %d", stats[i].nombre, stats[i].maxScore);

@@ -195,7 +195,7 @@ void fijarPieza(Pieza *p, int tablero[FILAS][COLUMNAS]) {
 }
 
 
-// Verifica si la rotación es válida (no choca ni se sale)
+// Verifica si la rotación  no choca ni se sale
 int puedeRotar(Pieza *p, int tablero[FILAS][COLUMNAS]) {
     for (int fila = 0; fila < 3; fila++) {
         for (int col = 0; col < 3; col++) {
@@ -257,7 +257,7 @@ int limpiarLineas(int tablero[FILAS][COLUMNAS]) {
 
 
 
-// Verifica si la nueva pieza choca al aparecer → fin del juego
+// Verifica si la nueva pieza choca al aparecer
 int GameOver(Pieza *p, int tablero[FILAS][COLUMNAS]) {
     for (int fila = 0; fila < 3; fila++) {
         for (int col = 0; col < 3; col++) {
